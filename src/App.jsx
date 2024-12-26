@@ -37,7 +37,7 @@ function Model({ ready }) {
   const group = useRef();
   const [rotationDirection, setRotationDirection] = useState(1); // 1: 왼쪽, -1: 오른쪽
   const { nodes, materials } = useGLTF('/scene-draco.glb');
-  const forgetWishString = ["고마웠어", "그동안 고생했어", "너는 소중한 사람이야", "시간이 너의 편", '이제 괜찮아'];
+  const forgetWishString = ["고마웠어", "그동안 고생했어", "너는 소중한 사람", "시간이 지나면 편해질 거야", '이제 괜찮아'];
   const catchWishString = ["보고싶어"];
   let FareWellString = forgetWishString;
   // useFrame(() => (group.current.rotation.y += 0.001))
@@ -126,7 +126,7 @@ function Model({ ready }) {
           {ready && <PositionalAudio autoplay loop url="/zapsplat_icecream.mp3" distance={3} />}
         </group>
         {/* 태양 */}
-        <mesh position={[250000, -200000, 50000]}>
+        <mesh position={[250000, 200000, 50000]}>
           <sphereGeometry args={[30000, 32, 32]} />
           <meshBasicMaterial color="#ff1020" />
         </mesh>
