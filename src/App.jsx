@@ -13,10 +13,10 @@ export default function App({ ready }) {
       <div style={{ position: 'absolute', top: '24px', left: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifycontents: 'center', flexDirection: 'column', }}>
           <img src={MyImage} alt="My Image" style={{ width: "180px" }} />
-          <div style={{ fontSize: 28, marginTop: 18 }}>
+          <div style={{ fontSize: '2rem', marginTop: 18 }}>
             이별노트
           </div>
-          <div style={{ fontSize: 14, marginTop: 0 }}>
+          <div style={{ fontSize: '1rem', marginTop: 0 }}>
             오늘이 지나면 괜찮아질 당신
           </div>
         </div>
