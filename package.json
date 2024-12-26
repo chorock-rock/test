@@ -8,6 +8,7 @@
     "@react-three/fiber": "7.0.26",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "styled-components": "^6.1.13",
     "three": "^0.171.0"
   },
   "scripts": {
