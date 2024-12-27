@@ -10,7 +10,7 @@ export default function App({ ready }) {
   const audioRef = useRef(null);
 
   const handleClick = () => {
-    window.open('https://www.youtube.com', '_blank'); // 새 탭에서 유튜브 열기
+    window.open('https://www.youtube.com/watch?v=q_NCKwHT-2k', '_blank'); // 새 탭에서 유튜브 열기
   };
 
   useEffect(() => {
