@@ -26,7 +26,7 @@ body,
 body {
   font-family: 'Tenada', sans-serif;
   color: white;
-  background: #cc7b32;
+  background: #141827;
   user-select: none;
 }
 
@@ -55,31 +55,88 @@ body {
   opacity: 0;
 }
 
-a {
+ul li a {
   font-family: 'Tenada', sans-serif;
   pointer-events: all;
   cursor: pointer;
   color: inherit;
   text-decoration: none;
 }
-
+input {
+  font-family: 'Tenada', sans-serif;
+}
 button {
   font-family: 'Tenada', sans-serif;
 }
-a:hover {
+ul li a:hover {
   text-decoration: underline;
   color: inherit;
 }
+li::marker {
+  content: '';
+}
+.music {
+  text-decoration: underline;
+  color: inherit;
+  font-size: var(--fontsize-m);
+  position: absolute;
+  z-index: 999999;
+  width: 60px;
+  height: 60px;
+  background-color:#0c2e2b;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-left: 5px;
+  right: 1px;
+  top: 10px;
+  border-radius: 50% 0 0 50%;
+  transition: 0.15s ease-in-out;
+  cursor: pointer;
+}
+.fa-music{
+margin-right: 30px;
+}
+.fa-pause{
+  margin-right: 30px;
+}
+.music:hover .fa-music {
+  animation: shake 1s;
+  animation-iteration-count: infinite;
+}
 
+.music:hover {
+  opacity: 1;
+  transform: translateY(2px);
+}
 @keyframes fadeIn {
   from {
     opacity: 0;
   }
   to {
-    opacity: 1;
+    opacity: 0.8;
   }
 }
 
 .fade-in {
   animation: fadeIn 2.5s ease-in-out;
+}
+
+@keyframes glow {
+  0% {
+    box-shadow: none;
+  }
+  40% {
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #cc7b32, 0 0 40px #cc7b32, 0 0 50px #cc7b32, 0 0 60px #cc7b32, 0 0 70px #cc7b32;
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+.glow {
+  padding: 14px;
+  border-radius: 12px;
+  animation: glow 4.5s infinite;
 }

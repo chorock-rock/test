@@ -1,15 +1,35 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { Canvas, useFrame, } from '@react-three/fiber'
 import { useGLTF, PositionalAudio, Text } from '@react-three/drei'
 import MyImage from "/logo_3.svg"
+import PauseIcon from '@mui/icons-material/Pause';
+import MusicNoteIcon from '@mui/icons-material/MusicNote';
 
 export default function App({ ready }) {
+  const [musicFlag, setMusicFlag] = useState(false);
+  const audioRef = useRef(null);
+
+  const handleClick = () => {
+    window.open('https://www.youtube.com', '_blank'); // 새 탭에서 유튜브 열기
+  };
+
+  useEffect(() => {
+    console.log(audioRef.current)
+    if (audioRef.current) {
+      if (musicFlag) {
+        audioRef.current.play();
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [musicFlag]);
   return (
     <>
       <Canvas camera={{ position: [0, 2, 20], fov: 40 }}>
         <fog attach="fog" args={['#cc7b32', 0, 500]} />
         <Model ready={ready} />
       </Canvas>
+      <audio ref={audioRef} src="/beyondiBreakup.mp3" />
       <div style={{ position: 'absolute', top: '24px', left: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifycontents: 'center', flexDirection: 'column', }}>
           <img src={MyImage} alt="My Image" style={{ width: "180px" }} />
@@ -20,6 +40,34 @@ export default function App({ ready }) {
             오늘이 지나면 괜찮아질 당신
           </div>
         </div>
+      </div>
+      <div style={{ position: 'absolute', right: -5, width: 50, height: 50, top: '24%' }}>
+        <ul className="music" onClick={() => { setMusicFlag(!musicFlag) }}>
+          {!musicFlag && <li><MusicNoteIcon /></li>}
+          {musicFlag && <li><PauseIcon /></li>}
+        </ul>
+      </div>
+      <div>
+        <button
+          onClick={handleClick}
+          style={{
+            backgroundColor: '#FF0000',
+            position: 'absolute',
+            bottom: '1px',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            padding: '10px 20px',
+            fontSize: '16px',
+            cursor: 'pointer',
+            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+            transition: 'transform 0.2s',
+          }}
+          onMouseOver={(e) => (e.target.style.transform = 'scale(1.05)')}
+          onMouseOut={(e) => (e.target.style.transform = 'scale(1)')}
+        >
+          YouTube
+        </button>
       </div>
     </>
   )
@@ -37,10 +85,19 @@ function Model({ ready }) {
   const group = useRef();
   const [rotationDirection, setRotationDirection] = useState(1); // 1: 왼쪽, -1: 오른쪽
   const { nodes, materials } = useGLTF('/scene-draco.glb');
+  const materials2 = useGLTF('/scene_2.glb');
+
+  console.log(materials2);
+  // materials2.color.set("blue");
+
+  materials.Scene_Root.opacity = 0.3;
+  const [mashColor, setMashColor] = useState(materials.Scene_Root);
+
   const forgetWishString = ["고마웠어", "그동안 고생했어", "너는 소중한 사람", "시간이 지나면 편해질 거야", '이제 괜찮아'];
   const catchWishString = ["보고싶어"];
+
   let FareWellString = forgetWishString;
-  // useFrame(() => (group.current.rotation.y += 0.001))
+  // console.log(mashColor)
   useFrame(() => {
     if (group.current) {
       // 회전 업데이트
@@ -58,10 +115,10 @@ function Model({ ready }) {
     <group ref={group} scale={0.001} position={[0, 0, -100]} dispose={null}>
       <group rotation={[-Math.PI / 1.98, 0, 0]}>
         <group position={[-102253.52, -210688.86, -17050.52]}>
-          <mesh material={materials.Scene_Root} geometry={nodes.mesh_0.geometry} />
+          <mesh material={materials2.materials.mat0} geometry={nodes.mesh_0.geometry} color='black' />
           {/* <mesh material={materials.Scene_Root} geometry={nodes.mesh_1.geometry} /> */}
           {/* <mesh material={materials.Scene_Root} geometry={nodes.mesh_2.geometry} /> */}
-          <mesh material={materials.Scene_Root} geometry={nodes.mesh_3.geometry} />
+          <mesh material={materials2.materials.mat0} geometry={nodes.mesh_3.geometry} color='black' />
         </group>
 
         {/* 중앙 글씨 */}
@@ -122,13 +179,10 @@ function Model({ ready }) {
           {FareWellString[4]}
         </Text>
 
-        <group position={[100000, 120000, 2000]}>
-          {ready && <PositionalAudio autoplay loop url="/zapsplat_icecream.mp3" distance={3} />}
-        </group>
         {/* 태양 */}
         <mesh position={[250000, 200000, 50000]}>
           <sphereGeometry args={[30000, 32, 32]} />
-          <meshBasicMaterial color="#ff1020" />
+          <meshBasicMaterial color="#ffffff" />
         </mesh>
       </group>
     </group>
